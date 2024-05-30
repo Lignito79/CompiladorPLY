@@ -1,7 +1,0 @@
-program prueba1;
-var a: int;
-main{
-    a = 7;
-    print(a);
-}
-end

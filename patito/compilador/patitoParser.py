@@ -621,28 +621,28 @@ opcion_prueba = input("Elija un número del 1 al 10 para seleccionar una prueba:
 
 # Dependiendo del numero elegido, se usa la correspondiente función
 if opcion_prueba == "1":
-    data = read_program_txt('./patito/compilador/prueba1.txt')
+    data = read_program_txt('prueba1.txt')
 
 elif opcion_prueba == "2":
-    data = read_program_txt('./patito/compilador/prueba2.txt')
+    data = read_program_txt('prueba2.txt')
 
 elif opcion_prueba == "3":
-    data = read_program_txt('./patito/compilador/prueba3.txt')
+    data = read_program_txt('prueba3.txt')
 
 elif opcion_prueba == "4":
-    data = read_program_txt('./patito/compilador/prueba4.txt')
+    data = read_program_txt('prueba4.txt')
 
 elif opcion_prueba == "5":
-    data = read_program_txt('./patito/compilador/prueba5.txt')
+    data = read_program_txt('prueba5.txt')
 
 elif opcion_prueba == "6":
-    data = read_program_txt('./patito/compilador/prueba6.txt')
+    data = read_program_txt('prueba6.txt')
 
 elif opcion_prueba == "7":
-    data = read_program_txt('./patito/compilador/prueba7.txt')
+    data = read_program_txt('prueba7.txt')
 
 elif opcion_prueba == "8":
-    data = read_program_txt('./patito/compilador/prueba8.txt')
+    data = read_program_txt('prueba8.txt')
 
 else:
     raise Exception('Numero de prueba invalido')

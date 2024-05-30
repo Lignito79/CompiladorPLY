@@ -1,0 +1,17 @@
+program Fibonacci;
+var a, b, contador, sigTerm, n : int;
+main { 
+    n = 10;
+    a = 0;
+    b = 1;
+    contador = 0;
+    print("Los primeros ", n, " numeros de la sucesion de Fibonacci son:");
+    do{
+        sigTerm = a + b;
+        print("#", contador+1, ": ", a);
+        a = b;
+        b = sigTerm;
+        contador = contador + 1;
+    }
+    while(contador < n);    
+} end
