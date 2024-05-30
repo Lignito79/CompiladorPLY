@@ -1,0 +1,6 @@
+program prueba6;
+var a: int;
+main{
+    a = 7;
+    print(a);
+}

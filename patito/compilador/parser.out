@@ -1,0 +1,1994 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    NEWLINE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID SEMICOLON global_scope checkVars cicloFuncs MAIN body END
+Rule 2     global_scope -> <empty>
+Rule 3     checkVars -> vars
+Rule 4     checkVars -> empty
+Rule 5     cicloFuncs -> funcs cicloFuncs
+Rule 6     cicloFuncs -> funcs
+Rule 7     cicloFuncs -> empty
+Rule 8     vars -> VAR nombresVars
+Rule 9     nombresVars -> nombresVars declVar
+Rule 10    nombresVars -> declVar
+Rule 11    declVar -> idsVars COLON type SEMICOLON
+Rule 12    idsVars -> idsVars COMMA ID
+Rule 13    idsVars -> ID
+Rule 14    funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+Rule 15    add_function -> <empty>
+Rule 16    new_scope -> <empty>
+Rule 17    groupParams -> groupParams COMMA idsParams
+Rule 18    groupParams -> idsParams
+Rule 19    groupParams -> empty
+Rule 20    idsParams -> ID COLON type
+Rule 21    type -> INT new_type
+Rule 22    type -> FLOAT new_type
+Rule 23    new_type -> <empty>
+Rule 24    body -> LCURLYB bodyStatements RCURLYB
+Rule 25    bodyStatements -> bodyStatements statement
+Rule 26    bodyStatements -> statement
+Rule 27    bodyStatements -> empty
+Rule 28    statement -> assign
+Rule 29    statement -> condition
+Rule 30    statement -> cycle
+Rule 31    statement -> fCall
+Rule 32    statement -> print
+Rule 33    assign -> ID EQUALS expresion SEMICOLON
+Rule 34    condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON
+Rule 35    end_condition -> <empty>
+Rule 36    evaluate_condition -> <empty>
+Rule 37    conditionElse -> ELSE evaluate_else body
+Rule 38    conditionElse -> empty
+Rule 39    evaluate_else -> <empty>
+Rule 40    cycle -> DO startof_cycle body WHILE expresion check_expression SEMICOLON
+Rule 41    startof_cycle -> <empty>
+Rule 42    check_expression -> <empty>
+Rule 43    fCall -> ID LPARENTH expresionFCall RPARENTH SEMICOLON
+Rule 44    expresionFCall -> expresionFCall COMMA expresion
+Rule 45    expresionFCall -> expresion
+Rule 46    expresionFCall -> empty
+Rule 47    print -> PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON
+Rule 48    print_new_line -> <empty>
+Rule 49    printExpresion -> printExpresion COMMA expresOrString
+Rule 50    printExpresion -> expresOrString
+Rule 51    expresOrString -> expresion
+Rule 52    expresOrString -> STRINGVALUE
+Rule 53    exp -> termino solve_exp cicloExp
+Rule 54    solve_exp -> <empty>
+Rule 55    cicloExp -> operadoresExp exp
+Rule 56    cicloExp -> empty
+Rule 57    operadoresExp -> PLUS
+Rule 58    operadoresExp -> MINUS
+Rule 59    expresion -> exp comparacion solve_comparacion
+Rule 60    solve_comparacion -> <empty>
+Rule 61    comparacion -> operadoresComp exp
+Rule 62    comparacion -> empty
+Rule 63    operadoresComp -> GT
+Rule 64    operadoresComp -> LT
+Rule 65    operadoresComp -> NE
+Rule 66    termino -> factor solve_term cicloTerm
+Rule 67    solve_term -> <empty>
+Rule 68    cicloTerm -> operadoresTerm termino
+Rule 69    cicloTerm -> empty
+Rule 70    operadoresTerm -> TIMES
+Rule 71    operadoresTerm -> DIVIDE
+Rule 72    factor -> factorExp
+Rule 73    factor -> factorIdCte
+Rule 74    factorExp -> LPARENTH expresion RPARENTH
+Rule 75    factorIdCte -> factorOperadores idOrCte
+Rule 76    factorOperadores -> operadoresExp
+Rule 77    factorOperadores -> empty
+Rule 78    idOrCte -> ID
+Rule 79    idOrCte -> cte
+Rule 80    cte -> INTVALUE
+Rule 81    cte -> FLOATVALUE
+Rule 82    empty -> <empty>
+
+Terminals, with rules where they appear
+
+COLON                : 11 20
+COMMA                : 12 17 44 49
+DIVIDE               : 71
+DO                   : 40
+ELSE                 : 37
+END                  : 1
+EQUALS               : 33
+FLOAT                : 22
+FLOATVALUE           : 81
+GT                   : 63
+ID                   : 1 12 13 14 20 33 43 78
+IF                   : 34
+INT                  : 21
+INTVALUE             : 80
+LCURLYB              : 24
+LPARENTH             : 14 34 43 47 74
+LSQUAREB             : 14
+LT                   : 64
+MAIN                 : 1
+MINUS                : 58
+NE                   : 65
+NEWLINE              : 
+PLUS                 : 57
+PRINT                : 47
+PROGRAM              : 1
+RCURLYB              : 24
+RPARENTH             : 14 34 43 47 74
+RSQUAREB             : 14
+SEMICOLON            : 1 11 14 33 34 40 43 47
+STRINGVALUE          : 52
+TIMES                : 70
+VAR                  : 8
+VOID                 : 14
+WHILE                : 40
+error                : 
+
+Nonterminals, with rules where they appear
+
+add_function         : 14
+assign               : 28
+body                 : 1 14 34 37 40
+bodyStatements       : 24 25
+checkVars            : 1 14
+check_expression     : 40
+cicloExp             : 53
+cicloFuncs           : 1 5
+cicloTerm            : 66
+comparacion          : 59
+condition            : 29
+conditionElse        : 34
+cte                  : 79
+cycle                : 30
+declVar              : 9 10
+empty                : 4 7 19 27 38 46 56 62 69 77
+end_condition        : 34
+evaluate_condition   : 34
+evaluate_else        : 37
+exp                  : 55 59 61
+expresOrString       : 49 50
+expresion            : 33 34 40 44 45 51 74
+expresionFCall       : 43 44
+fCall                : 31
+factor               : 66
+factorExp            : 72
+factorIdCte          : 73
+factorOperadores     : 75
+funcs                : 5 6
+global_scope         : 1
+groupParams          : 14 17
+idOrCte              : 75
+idsParams            : 17 18
+idsVars              : 11 12
+new_scope            : 14
+new_type             : 21 22
+nombresVars          : 8 9
+operadoresComp       : 61
+operadoresExp        : 55 76
+operadoresTerm       : 68
+print                : 32
+printExpresion       : 47 49
+print_new_line       : 47
+program              : 0
+solve_comparacion    : 59
+solve_exp            : 53
+solve_term           : 66
+startof_cycle        : 40
+statement            : 25 26
+termino              : 53 68
+type                 : 11 20
+vars                 : 3
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM ID SEMICOLON global_scope checkVars cicloFuncs MAIN body END
+
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAM . ID SEMICOLON global_scope checkVars cicloFuncs MAIN body END
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAM ID . SEMICOLON global_scope checkVars cicloFuncs MAIN body END
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM ID SEMICOLON . global_scope checkVars cicloFuncs MAIN body END
+    (2) global_scope -> .
+
+    VAR             reduce using rule 2 (global_scope -> .)
+    VOID            reduce using rule 2 (global_scope -> .)
+    MAIN            reduce using rule 2 (global_scope -> .)
+
+    global_scope                   shift and go to state 5
+
+state 5
+
+    (1) program -> PROGRAM ID SEMICOLON global_scope . checkVars cicloFuncs MAIN body END
+    (3) checkVars -> . vars
+    (4) checkVars -> . empty
+    (8) vars -> . VAR nombresVars
+    (82) empty -> .
+
+    VAR             shift and go to state 9
+    VOID            reduce using rule 82 (empty -> .)
+    MAIN            reduce using rule 82 (empty -> .)
+
+    checkVars                      shift and go to state 6
+    vars                           shift and go to state 7
+    empty                          shift and go to state 8
+
+state 6
+
+    (1) program -> PROGRAM ID SEMICOLON global_scope checkVars . cicloFuncs MAIN body END
+    (5) cicloFuncs -> . funcs cicloFuncs
+    (6) cicloFuncs -> . funcs
+    (7) cicloFuncs -> . empty
+    (14) funcs -> . VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+    (82) empty -> .
+
+    VOID            shift and go to state 13
+    MAIN            reduce using rule 82 (empty -> .)
+
+    cicloFuncs                     shift and go to state 10
+    funcs                          shift and go to state 11
+    empty                          shift and go to state 12
+
+state 7
+
+    (3) checkVars -> vars .
+
+    VOID            reduce using rule 3 (checkVars -> vars .)
+    MAIN            reduce using rule 3 (checkVars -> vars .)
+    LCURLYB         reduce using rule 3 (checkVars -> vars .)
+
+
+state 8
+
+    (4) checkVars -> empty .
+
+    VOID            reduce using rule 4 (checkVars -> empty .)
+    MAIN            reduce using rule 4 (checkVars -> empty .)
+    LCURLYB         reduce using rule 4 (checkVars -> empty .)
+
+
+state 9
+
+    (8) vars -> VAR . nombresVars
+    (9) nombresVars -> . nombresVars declVar
+    (10) nombresVars -> . declVar
+    (11) declVar -> . idsVars COLON type SEMICOLON
+    (12) idsVars -> . idsVars COMMA ID
+    (13) idsVars -> . ID
+
+    ID              shift and go to state 17
+
+    nombresVars                    shift and go to state 14
+    declVar                        shift and go to state 15
+    idsVars                        shift and go to state 16
+
+state 10
+
+    (1) program -> PROGRAM ID SEMICOLON global_scope checkVars cicloFuncs . MAIN body END
+
+    MAIN            shift and go to state 18
+
+
+state 11
+
+    (5) cicloFuncs -> funcs . cicloFuncs
+    (6) cicloFuncs -> funcs .
+    (5) cicloFuncs -> . funcs cicloFuncs
+    (6) cicloFuncs -> . funcs
+    (7) cicloFuncs -> . empty
+    (14) funcs -> . VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+    (82) empty -> .
+
+  ! reduce/reduce conflict for MAIN resolved using rule 6 (cicloFuncs -> funcs .)
+    MAIN            reduce using rule 6 (cicloFuncs -> funcs .)
+    VOID            shift and go to state 13
+
+  ! MAIN            [ reduce using rule 82 (empty -> .) ]
+
+    funcs                          shift and go to state 11
+    cicloFuncs                     shift and go to state 19
+    empty                          shift and go to state 12
+
+state 12
+
+    (7) cicloFuncs -> empty .
+
+    MAIN            reduce using rule 7 (cicloFuncs -> empty .)
+
+
+state 13
+
+    (14) funcs -> VOID . ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+
+    ID              shift and go to state 20
+
+
+state 14
+
+    (8) vars -> VAR nombresVars .
+    (9) nombresVars -> nombresVars . declVar
+    (11) declVar -> . idsVars COLON type SEMICOLON
+    (12) idsVars -> . idsVars COMMA ID
+    (13) idsVars -> . ID
+
+    VOID            reduce using rule 8 (vars -> VAR nombresVars .)
+    MAIN            reduce using rule 8 (vars -> VAR nombresVars .)
+    LCURLYB         reduce using rule 8 (vars -> VAR nombresVars .)
+    ID              shift and go to state 17
+
+    declVar                        shift and go to state 21
+    idsVars                        shift and go to state 16
+
+state 15
+
+    (10) nombresVars -> declVar .
+
+    ID              reduce using rule 10 (nombresVars -> declVar .)
+    VOID            reduce using rule 10 (nombresVars -> declVar .)
+    MAIN            reduce using rule 10 (nombresVars -> declVar .)
+    LCURLYB         reduce using rule 10 (nombresVars -> declVar .)
+
+
+state 16
+
+    (11) declVar -> idsVars . COLON type SEMICOLON
+    (12) idsVars -> idsVars . COMMA ID
+
+    COLON           shift and go to state 22
+    COMMA           shift and go to state 23
+
+
+state 17
+
+    (13) idsVars -> ID .
+
+    COLON           reduce using rule 13 (idsVars -> ID .)
+    COMMA           reduce using rule 13 (idsVars -> ID .)
+
+
+state 18
+
+    (1) program -> PROGRAM ID SEMICOLON global_scope checkVars cicloFuncs MAIN . body END
+    (24) body -> . LCURLYB bodyStatements RCURLYB
+
+    LCURLYB         shift and go to state 25
+
+    body                           shift and go to state 24
+
+state 19
+
+    (5) cicloFuncs -> funcs cicloFuncs .
+
+    MAIN            reduce using rule 5 (cicloFuncs -> funcs cicloFuncs .)
+
+
+state 20
+
+    (14) funcs -> VOID ID . LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+
+    LPARENTH        shift and go to state 26
+
+
+state 21
+
+    (9) nombresVars -> nombresVars declVar .
+
+    ID              reduce using rule 9 (nombresVars -> nombresVars declVar .)
+    VOID            reduce using rule 9 (nombresVars -> nombresVars declVar .)
+    MAIN            reduce using rule 9 (nombresVars -> nombresVars declVar .)
+    LCURLYB         reduce using rule 9 (nombresVars -> nombresVars declVar .)
+
+
+state 22
+
+    (11) declVar -> idsVars COLON . type SEMICOLON
+    (21) type -> . INT new_type
+    (22) type -> . FLOAT new_type
+
+    INT             shift and go to state 28
+    FLOAT           shift and go to state 29
+
+    type                           shift and go to state 27
+
+state 23
+
+    (12) idsVars -> idsVars COMMA . ID
+
+    ID              shift and go to state 30
+
+
+state 24
+
+    (1) program -> PROGRAM ID SEMICOLON global_scope checkVars cicloFuncs MAIN body . END
+
+    END             shift and go to state 31
+
+
+state 25
+
+    (24) body -> LCURLYB . bodyStatements RCURLYB
+    (25) bodyStatements -> . bodyStatements statement
+    (26) bodyStatements -> . statement
+    (27) bodyStatements -> . empty
+    (28) statement -> . assign
+    (29) statement -> . condition
+    (30) statement -> . cycle
+    (31) statement -> . fCall
+    (32) statement -> . print
+    (82) empty -> .
+    (33) assign -> . ID EQUALS expresion SEMICOLON
+    (34) condition -> . IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON
+    (40) cycle -> . DO startof_cycle body WHILE expresion check_expression SEMICOLON
+    (43) fCall -> . ID LPARENTH expresionFCall RPARENTH SEMICOLON
+    (47) print -> . PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON
+
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+    RCURLYB         reduce using rule 82 (empty -> .)
+    ID              shift and go to state 40
+    IF              shift and go to state 41
+    DO              shift and go to state 42
+    PRINT           shift and go to state 43
+
+  ! ID              [ reduce using rule 82 (empty -> .) ]
+  ! IF              [ reduce using rule 82 (empty -> .) ]
+  ! DO              [ reduce using rule 82 (empty -> .) ]
+  ! PRINT           [ reduce using rule 82 (empty -> .) ]
+
+    bodyStatements                 shift and go to state 32
+    statement                      shift and go to state 33
+    empty                          shift and go to state 34
+    assign                         shift and go to state 35
+    condition                      shift and go to state 36
+    cycle                          shift and go to state 37
+    fCall                          shift and go to state 38
+    print                          shift and go to state 39
+
+state 26
+
+    (14) funcs -> VOID ID LPARENTH . groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+    (17) groupParams -> . groupParams COMMA idsParams
+    (18) groupParams -> . idsParams
+    (19) groupParams -> . empty
+    (20) idsParams -> . ID COLON type
+    (82) empty -> .
+
+    ID              shift and go to state 44
+    COMMA           reduce using rule 82 (empty -> .)
+    RPARENTH        reduce using rule 82 (empty -> .)
+
+    groupParams                    shift and go to state 45
+    idsParams                      shift and go to state 46
+    empty                          shift and go to state 47
+
+state 27
+
+    (11) declVar -> idsVars COLON type . SEMICOLON
+
+    SEMICOLON       shift and go to state 48
+
+
+state 28
+
+    (21) type -> INT . new_type
+    (23) new_type -> .
+
+    SEMICOLON       reduce using rule 23 (new_type -> .)
+    COMMA           reduce using rule 23 (new_type -> .)
+    RPARENTH        reduce using rule 23 (new_type -> .)
+
+    new_type                       shift and go to state 49
+
+state 29
+
+    (22) type -> FLOAT . new_type
+    (23) new_type -> .
+
+    SEMICOLON       reduce using rule 23 (new_type -> .)
+    COMMA           reduce using rule 23 (new_type -> .)
+    RPARENTH        reduce using rule 23 (new_type -> .)
+
+    new_type                       shift and go to state 50
+
+state 30
+
+    (12) idsVars -> idsVars COMMA ID .
+
+    COLON           reduce using rule 12 (idsVars -> idsVars COMMA ID .)
+    COMMA           reduce using rule 12 (idsVars -> idsVars COMMA ID .)
+
+
+state 31
+
+    (1) program -> PROGRAM ID SEMICOLON global_scope checkVars cicloFuncs MAIN body END .
+
+    $end            reduce using rule 1 (program -> PROGRAM ID SEMICOLON global_scope checkVars cicloFuncs MAIN body END .)
+
+
+state 32
+
+    (24) body -> LCURLYB bodyStatements . RCURLYB
+    (25) bodyStatements -> bodyStatements . statement
+    (28) statement -> . assign
+    (29) statement -> . condition
+    (30) statement -> . cycle
+    (31) statement -> . fCall
+    (32) statement -> . print
+    (33) assign -> . ID EQUALS expresion SEMICOLON
+    (34) condition -> . IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON
+    (40) cycle -> . DO startof_cycle body WHILE expresion check_expression SEMICOLON
+    (43) fCall -> . ID LPARENTH expresionFCall RPARENTH SEMICOLON
+    (47) print -> . PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON
+
+    RCURLYB         shift and go to state 51
+    ID              shift and go to state 40
+    IF              shift and go to state 41
+    DO              shift and go to state 42
+    PRINT           shift and go to state 43
+
+    statement                      shift and go to state 52
+    assign                         shift and go to state 35
+    condition                      shift and go to state 36
+    cycle                          shift and go to state 37
+    fCall                          shift and go to state 38
+    print                          shift and go to state 39
+
+state 33
+
+    (26) bodyStatements -> statement .
+
+    RCURLYB         reduce using rule 26 (bodyStatements -> statement .)
+    ID              reduce using rule 26 (bodyStatements -> statement .)
+    IF              reduce using rule 26 (bodyStatements -> statement .)
+    DO              reduce using rule 26 (bodyStatements -> statement .)
+    PRINT           reduce using rule 26 (bodyStatements -> statement .)
+
+
+state 34
+
+    (27) bodyStatements -> empty .
+
+    RCURLYB         reduce using rule 27 (bodyStatements -> empty .)
+    ID              reduce using rule 27 (bodyStatements -> empty .)
+    IF              reduce using rule 27 (bodyStatements -> empty .)
+    DO              reduce using rule 27 (bodyStatements -> empty .)
+    PRINT           reduce using rule 27 (bodyStatements -> empty .)
+
+
+state 35
+
+    (28) statement -> assign .
+
+    RCURLYB         reduce using rule 28 (statement -> assign .)
+    ID              reduce using rule 28 (statement -> assign .)
+    IF              reduce using rule 28 (statement -> assign .)
+    DO              reduce using rule 28 (statement -> assign .)
+    PRINT           reduce using rule 28 (statement -> assign .)
+
+
+state 36
+
+    (29) statement -> condition .
+
+    RCURLYB         reduce using rule 29 (statement -> condition .)
+    ID              reduce using rule 29 (statement -> condition .)
+    IF              reduce using rule 29 (statement -> condition .)
+    DO              reduce using rule 29 (statement -> condition .)
+    PRINT           reduce using rule 29 (statement -> condition .)
+
+
+state 37
+
+    (30) statement -> cycle .
+
+    RCURLYB         reduce using rule 30 (statement -> cycle .)
+    ID              reduce using rule 30 (statement -> cycle .)
+    IF              reduce using rule 30 (statement -> cycle .)
+    DO              reduce using rule 30 (statement -> cycle .)
+    PRINT           reduce using rule 30 (statement -> cycle .)
+
+
+state 38
+
+    (31) statement -> fCall .
+
+    RCURLYB         reduce using rule 31 (statement -> fCall .)
+    ID              reduce using rule 31 (statement -> fCall .)
+    IF              reduce using rule 31 (statement -> fCall .)
+    DO              reduce using rule 31 (statement -> fCall .)
+    PRINT           reduce using rule 31 (statement -> fCall .)
+
+
+state 39
+
+    (32) statement -> print .
+
+    RCURLYB         reduce using rule 32 (statement -> print .)
+    ID              reduce using rule 32 (statement -> print .)
+    IF              reduce using rule 32 (statement -> print .)
+    DO              reduce using rule 32 (statement -> print .)
+    PRINT           reduce using rule 32 (statement -> print .)
+
+
+state 40
+
+    (33) assign -> ID . EQUALS expresion SEMICOLON
+    (43) fCall -> ID . LPARENTH expresionFCall RPARENTH SEMICOLON
+
+    EQUALS          shift and go to state 53
+    LPARENTH        shift and go to state 54
+
+
+state 41
+
+    (34) condition -> IF . LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON
+
+    LPARENTH        shift and go to state 55
+
+
+state 42
+
+    (40) cycle -> DO . startof_cycle body WHILE expresion check_expression SEMICOLON
+    (41) startof_cycle -> .
+
+    LCURLYB         reduce using rule 41 (startof_cycle -> .)
+
+    startof_cycle                  shift and go to state 56
+
+state 43
+
+    (47) print -> PRINT . LPARENTH printExpresion RPARENTH print_new_line SEMICOLON
+
+    LPARENTH        shift and go to state 57
+
+
+state 44
+
+    (20) idsParams -> ID . COLON type
+
+    COLON           shift and go to state 58
+
+
+state 45
+
+    (14) funcs -> VOID ID LPARENTH groupParams . add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+    (17) groupParams -> groupParams . COMMA idsParams
+    (15) add_function -> .
+
+    COMMA           shift and go to state 60
+    RPARENTH        reduce using rule 15 (add_function -> .)
+
+    add_function                   shift and go to state 59
+
+state 46
+
+    (18) groupParams -> idsParams .
+
+    COMMA           reduce using rule 18 (groupParams -> idsParams .)
+    RPARENTH        reduce using rule 18 (groupParams -> idsParams .)
+
+
+state 47
+
+    (19) groupParams -> empty .
+
+    COMMA           reduce using rule 19 (groupParams -> empty .)
+    RPARENTH        reduce using rule 19 (groupParams -> empty .)
+
+
+state 48
+
+    (11) declVar -> idsVars COLON type SEMICOLON .
+
+    ID              reduce using rule 11 (declVar -> idsVars COLON type SEMICOLON .)
+    VOID            reduce using rule 11 (declVar -> idsVars COLON type SEMICOLON .)
+    MAIN            reduce using rule 11 (declVar -> idsVars COLON type SEMICOLON .)
+    LCURLYB         reduce using rule 11 (declVar -> idsVars COLON type SEMICOLON .)
+
+
+state 49
+
+    (21) type -> INT new_type .
+
+    SEMICOLON       reduce using rule 21 (type -> INT new_type .)
+    COMMA           reduce using rule 21 (type -> INT new_type .)
+    RPARENTH        reduce using rule 21 (type -> INT new_type .)
+
+
+state 50
+
+    (22) type -> FLOAT new_type .
+
+    SEMICOLON       reduce using rule 22 (type -> FLOAT new_type .)
+    COMMA           reduce using rule 22 (type -> FLOAT new_type .)
+    RPARENTH        reduce using rule 22 (type -> FLOAT new_type .)
+
+
+state 51
+
+    (24) body -> LCURLYB bodyStatements RCURLYB .
+
+    END             reduce using rule 24 (body -> LCURLYB bodyStatements RCURLYB .)
+    WHILE           reduce using rule 24 (body -> LCURLYB bodyStatements RCURLYB .)
+    ELSE            reduce using rule 24 (body -> LCURLYB bodyStatements RCURLYB .)
+    SEMICOLON       reduce using rule 24 (body -> LCURLYB bodyStatements RCURLYB .)
+    RSQUAREB        reduce using rule 24 (body -> LCURLYB bodyStatements RCURLYB .)
+
+
+state 52
+
+    (25) bodyStatements -> bodyStatements statement .
+
+    RCURLYB         reduce using rule 25 (bodyStatements -> bodyStatements statement .)
+    ID              reduce using rule 25 (bodyStatements -> bodyStatements statement .)
+    IF              reduce using rule 25 (bodyStatements -> bodyStatements statement .)
+    DO              reduce using rule 25 (bodyStatements -> bodyStatements statement .)
+    PRINT           reduce using rule 25 (bodyStatements -> bodyStatements statement .)
+
+
+state 53
+
+    (33) assign -> ID EQUALS . expresion SEMICOLON
+    (59) expresion -> . exp comparacion solve_comparacion
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    expresion                      shift and go to state 61
+    exp                            shift and go to state 62
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 54
+
+    (43) fCall -> ID LPARENTH . expresionFCall RPARENTH SEMICOLON
+    (44) expresionFCall -> . expresionFCall COMMA expresion
+    (45) expresionFCall -> . expresion
+    (46) expresionFCall -> . empty
+    (59) expresion -> . exp comparacion solve_comparacion
+    (82) empty -> .
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+
+    RPARENTH        reduce using rule 82 (empty -> .)
+    COMMA           reduce using rule 82 (empty -> .)
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+
+    expresionFCall                 shift and go to state 73
+    expresion                      shift and go to state 74
+    empty                          shift and go to state 75
+    exp                            shift and go to state 62
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+
+state 55
+
+    (34) condition -> IF LPARENTH . expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON
+    (59) expresion -> . exp comparacion solve_comparacion
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    expresion                      shift and go to state 76
+    exp                            shift and go to state 62
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 56
+
+    (40) cycle -> DO startof_cycle . body WHILE expresion check_expression SEMICOLON
+    (24) body -> . LCURLYB bodyStatements RCURLYB
+
+    LCURLYB         shift and go to state 25
+
+    body                           shift and go to state 77
+
+state 57
+
+    (47) print -> PRINT LPARENTH . printExpresion RPARENTH print_new_line SEMICOLON
+    (49) printExpresion -> . printExpresion COMMA expresOrString
+    (50) printExpresion -> . expresOrString
+    (51) expresOrString -> . expresion
+    (52) expresOrString -> . STRINGVALUE
+    (59) expresion -> . exp comparacion solve_comparacion
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    STRINGVALUE     shift and go to state 81
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    printExpresion                 shift and go to state 78
+    expresOrString                 shift and go to state 79
+    expresion                      shift and go to state 80
+    exp                            shift and go to state 62
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 58
+
+    (20) idsParams -> ID COLON . type
+    (21) type -> . INT new_type
+    (22) type -> . FLOAT new_type
+
+    INT             shift and go to state 28
+    FLOAT           shift and go to state 29
+
+    type                           shift and go to state 82
+
+state 59
+
+    (14) funcs -> VOID ID LPARENTH groupParams add_function . RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+
+    RPARENTH        shift and go to state 83
+
+
+state 60
+
+    (17) groupParams -> groupParams COMMA . idsParams
+    (20) idsParams -> . ID COLON type
+
+    ID              shift and go to state 44
+
+    idsParams                      shift and go to state 84
+
+state 61
+
+    (33) assign -> ID EQUALS expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 85
+
+
+state 62
+
+    (59) expresion -> exp . comparacion solve_comparacion
+    (61) comparacion -> . operadoresComp exp
+    (62) comparacion -> . empty
+    (63) operadoresComp -> . GT
+    (64) operadoresComp -> . LT
+    (65) operadoresComp -> . NE
+    (82) empty -> .
+
+    GT              shift and go to state 89
+    LT              shift and go to state 90
+    NE              shift and go to state 91
+    SEMICOLON       reduce using rule 82 (empty -> .)
+    RPARENTH        reduce using rule 82 (empty -> .)
+    COMMA           reduce using rule 82 (empty -> .)
+
+    comparacion                    shift and go to state 86
+    operadoresComp                 shift and go to state 87
+    empty                          shift and go to state 88
+
+state 63
+
+    (53) exp -> termino . solve_exp cicloExp
+    (54) solve_exp -> .
+
+    PLUS            reduce using rule 54 (solve_exp -> .)
+    MINUS           reduce using rule 54 (solve_exp -> .)
+    GT              reduce using rule 54 (solve_exp -> .)
+    LT              reduce using rule 54 (solve_exp -> .)
+    NE              reduce using rule 54 (solve_exp -> .)
+    SEMICOLON       reduce using rule 54 (solve_exp -> .)
+    RPARENTH        reduce using rule 54 (solve_exp -> .)
+    COMMA           reduce using rule 54 (solve_exp -> .)
+
+    solve_exp                      shift and go to state 92
+
+state 64
+
+    (66) termino -> factor . solve_term cicloTerm
+    (67) solve_term -> .
+
+    TIMES           reduce using rule 67 (solve_term -> .)
+    DIVIDE          reduce using rule 67 (solve_term -> .)
+    PLUS            reduce using rule 67 (solve_term -> .)
+    MINUS           reduce using rule 67 (solve_term -> .)
+    GT              reduce using rule 67 (solve_term -> .)
+    LT              reduce using rule 67 (solve_term -> .)
+    NE              reduce using rule 67 (solve_term -> .)
+    SEMICOLON       reduce using rule 67 (solve_term -> .)
+    RPARENTH        reduce using rule 67 (solve_term -> .)
+    COMMA           reduce using rule 67 (solve_term -> .)
+
+    solve_term                     shift and go to state 93
+
+state 65
+
+    (72) factor -> factorExp .
+
+    TIMES           reduce using rule 72 (factor -> factorExp .)
+    DIVIDE          reduce using rule 72 (factor -> factorExp .)
+    PLUS            reduce using rule 72 (factor -> factorExp .)
+    MINUS           reduce using rule 72 (factor -> factorExp .)
+    GT              reduce using rule 72 (factor -> factorExp .)
+    LT              reduce using rule 72 (factor -> factorExp .)
+    NE              reduce using rule 72 (factor -> factorExp .)
+    SEMICOLON       reduce using rule 72 (factor -> factorExp .)
+    RPARENTH        reduce using rule 72 (factor -> factorExp .)
+    COMMA           reduce using rule 72 (factor -> factorExp .)
+
+
+state 66
+
+    (73) factor -> factorIdCte .
+
+    TIMES           reduce using rule 73 (factor -> factorIdCte .)
+    DIVIDE          reduce using rule 73 (factor -> factorIdCte .)
+    PLUS            reduce using rule 73 (factor -> factorIdCte .)
+    MINUS           reduce using rule 73 (factor -> factorIdCte .)
+    GT              reduce using rule 73 (factor -> factorIdCte .)
+    LT              reduce using rule 73 (factor -> factorIdCte .)
+    NE              reduce using rule 73 (factor -> factorIdCte .)
+    SEMICOLON       reduce using rule 73 (factor -> factorIdCte .)
+    RPARENTH        reduce using rule 73 (factor -> factorIdCte .)
+    COMMA           reduce using rule 73 (factor -> factorIdCte .)
+
+
+state 67
+
+    (74) factorExp -> LPARENTH . expresion RPARENTH
+    (59) expresion -> . exp comparacion solve_comparacion
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    expresion                      shift and go to state 94
+    exp                            shift and go to state 62
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 68
+
+    (75) factorIdCte -> factorOperadores . idOrCte
+    (78) idOrCte -> . ID
+    (79) idOrCte -> . cte
+    (80) cte -> . INTVALUE
+    (81) cte -> . FLOATVALUE
+
+    ID              shift and go to state 96
+    INTVALUE        shift and go to state 98
+    FLOATVALUE      shift and go to state 99
+
+    idOrCte                        shift and go to state 95
+    cte                            shift and go to state 97
+
+state 69
+
+    (76) factorOperadores -> operadoresExp .
+
+    ID              reduce using rule 76 (factorOperadores -> operadoresExp .)
+    INTVALUE        reduce using rule 76 (factorOperadores -> operadoresExp .)
+    FLOATVALUE      reduce using rule 76 (factorOperadores -> operadoresExp .)
+
+
+state 70
+
+    (77) factorOperadores -> empty .
+
+    ID              reduce using rule 77 (factorOperadores -> empty .)
+    INTVALUE        reduce using rule 77 (factorOperadores -> empty .)
+    FLOATVALUE      reduce using rule 77 (factorOperadores -> empty .)
+
+
+state 71
+
+    (57) operadoresExp -> PLUS .
+
+    ID              reduce using rule 57 (operadoresExp -> PLUS .)
+    INTVALUE        reduce using rule 57 (operadoresExp -> PLUS .)
+    FLOATVALUE      reduce using rule 57 (operadoresExp -> PLUS .)
+    LPARENTH        reduce using rule 57 (operadoresExp -> PLUS .)
+    PLUS            reduce using rule 57 (operadoresExp -> PLUS .)
+    MINUS           reduce using rule 57 (operadoresExp -> PLUS .)
+
+
+state 72
+
+    (58) operadoresExp -> MINUS .
+
+    ID              reduce using rule 58 (operadoresExp -> MINUS .)
+    INTVALUE        reduce using rule 58 (operadoresExp -> MINUS .)
+    FLOATVALUE      reduce using rule 58 (operadoresExp -> MINUS .)
+    LPARENTH        reduce using rule 58 (operadoresExp -> MINUS .)
+    PLUS            reduce using rule 58 (operadoresExp -> MINUS .)
+    MINUS           reduce using rule 58 (operadoresExp -> MINUS .)
+
+
+state 73
+
+    (43) fCall -> ID LPARENTH expresionFCall . RPARENTH SEMICOLON
+    (44) expresionFCall -> expresionFCall . COMMA expresion
+
+    RPARENTH        shift and go to state 100
+    COMMA           shift and go to state 101
+
+
+state 74
+
+    (45) expresionFCall -> expresion .
+
+    RPARENTH        reduce using rule 45 (expresionFCall -> expresion .)
+    COMMA           reduce using rule 45 (expresionFCall -> expresion .)
+
+
+state 75
+
+    (46) expresionFCall -> empty .
+    (77) factorOperadores -> empty .
+
+    RPARENTH        reduce using rule 46 (expresionFCall -> empty .)
+    COMMA           reduce using rule 46 (expresionFCall -> empty .)
+    ID              reduce using rule 77 (factorOperadores -> empty .)
+    INTVALUE        reduce using rule 77 (factorOperadores -> empty .)
+    FLOATVALUE      reduce using rule 77 (factorOperadores -> empty .)
+
+
+state 76
+
+    (34) condition -> IF LPARENTH expresion . RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON
+
+    RPARENTH        shift and go to state 102
+
+
+state 77
+
+    (40) cycle -> DO startof_cycle body . WHILE expresion check_expression SEMICOLON
+
+    WHILE           shift and go to state 103
+
+
+state 78
+
+    (47) print -> PRINT LPARENTH printExpresion . RPARENTH print_new_line SEMICOLON
+    (49) printExpresion -> printExpresion . COMMA expresOrString
+
+    RPARENTH        shift and go to state 104
+    COMMA           shift and go to state 105
+
+
+state 79
+
+    (50) printExpresion -> expresOrString .
+
+    RPARENTH        reduce using rule 50 (printExpresion -> expresOrString .)
+    COMMA           reduce using rule 50 (printExpresion -> expresOrString .)
+
+
+state 80
+
+    (51) expresOrString -> expresion .
+
+    RPARENTH        reduce using rule 51 (expresOrString -> expresion .)
+    COMMA           reduce using rule 51 (expresOrString -> expresion .)
+
+
+state 81
+
+    (52) expresOrString -> STRINGVALUE .
+
+    RPARENTH        reduce using rule 52 (expresOrString -> STRINGVALUE .)
+    COMMA           reduce using rule 52 (expresOrString -> STRINGVALUE .)
+
+
+state 82
+
+    (20) idsParams -> ID COLON type .
+
+    COMMA           reduce using rule 20 (idsParams -> ID COLON type .)
+    RPARENTH        reduce using rule 20 (idsParams -> ID COLON type .)
+
+
+state 83
+
+    (14) funcs -> VOID ID LPARENTH groupParams add_function RPARENTH . LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON
+
+    LSQUAREB        shift and go to state 106
+
+
+state 84
+
+    (17) groupParams -> groupParams COMMA idsParams .
+
+    COMMA           reduce using rule 17 (groupParams -> groupParams COMMA idsParams .)
+    RPARENTH        reduce using rule 17 (groupParams -> groupParams COMMA idsParams .)
+
+
+state 85
+
+    (33) assign -> ID EQUALS expresion SEMICOLON .
+
+    RCURLYB         reduce using rule 33 (assign -> ID EQUALS expresion SEMICOLON .)
+    ID              reduce using rule 33 (assign -> ID EQUALS expresion SEMICOLON .)
+    IF              reduce using rule 33 (assign -> ID EQUALS expresion SEMICOLON .)
+    DO              reduce using rule 33 (assign -> ID EQUALS expresion SEMICOLON .)
+    PRINT           reduce using rule 33 (assign -> ID EQUALS expresion SEMICOLON .)
+
+
+state 86
+
+    (59) expresion -> exp comparacion . solve_comparacion
+    (60) solve_comparacion -> .
+
+    SEMICOLON       reduce using rule 60 (solve_comparacion -> .)
+    RPARENTH        reduce using rule 60 (solve_comparacion -> .)
+    COMMA           reduce using rule 60 (solve_comparacion -> .)
+
+    solve_comparacion              shift and go to state 107
+
+state 87
+
+    (61) comparacion -> operadoresComp . exp
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    exp                            shift and go to state 108
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 88
+
+    (62) comparacion -> empty .
+
+    SEMICOLON       reduce using rule 62 (comparacion -> empty .)
+    RPARENTH        reduce using rule 62 (comparacion -> empty .)
+    COMMA           reduce using rule 62 (comparacion -> empty .)
+
+
+state 89
+
+    (63) operadoresComp -> GT .
+
+    LPARENTH        reduce using rule 63 (operadoresComp -> GT .)
+    PLUS            reduce using rule 63 (operadoresComp -> GT .)
+    MINUS           reduce using rule 63 (operadoresComp -> GT .)
+    ID              reduce using rule 63 (operadoresComp -> GT .)
+    INTVALUE        reduce using rule 63 (operadoresComp -> GT .)
+    FLOATVALUE      reduce using rule 63 (operadoresComp -> GT .)
+
+
+state 90
+
+    (64) operadoresComp -> LT .
+
+    LPARENTH        reduce using rule 64 (operadoresComp -> LT .)
+    PLUS            reduce using rule 64 (operadoresComp -> LT .)
+    MINUS           reduce using rule 64 (operadoresComp -> LT .)
+    ID              reduce using rule 64 (operadoresComp -> LT .)
+    INTVALUE        reduce using rule 64 (operadoresComp -> LT .)
+    FLOATVALUE      reduce using rule 64 (operadoresComp -> LT .)
+
+
+state 91
+
+    (65) operadoresComp -> NE .
+
+    LPARENTH        reduce using rule 65 (operadoresComp -> NE .)
+    PLUS            reduce using rule 65 (operadoresComp -> NE .)
+    MINUS           reduce using rule 65 (operadoresComp -> NE .)
+    ID              reduce using rule 65 (operadoresComp -> NE .)
+    INTVALUE        reduce using rule 65 (operadoresComp -> NE .)
+    FLOATVALUE      reduce using rule 65 (operadoresComp -> NE .)
+
+
+state 92
+
+    (53) exp -> termino solve_exp . cicloExp
+    (55) cicloExp -> . operadoresExp exp
+    (56) cicloExp -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    GT              reduce using rule 82 (empty -> .)
+    LT              reduce using rule 82 (empty -> .)
+    NE              reduce using rule 82 (empty -> .)
+    SEMICOLON       reduce using rule 82 (empty -> .)
+    RPARENTH        reduce using rule 82 (empty -> .)
+    COMMA           reduce using rule 82 (empty -> .)
+
+    cicloExp                       shift and go to state 109
+    operadoresExp                  shift and go to state 110
+    empty                          shift and go to state 111
+
+state 93
+
+    (66) termino -> factor solve_term . cicloTerm
+    (68) cicloTerm -> . operadoresTerm termino
+    (69) cicloTerm -> . empty
+    (70) operadoresTerm -> . TIMES
+    (71) operadoresTerm -> . DIVIDE
+    (82) empty -> .
+
+    TIMES           shift and go to state 115
+    DIVIDE          shift and go to state 116
+    PLUS            reduce using rule 82 (empty -> .)
+    MINUS           reduce using rule 82 (empty -> .)
+    GT              reduce using rule 82 (empty -> .)
+    LT              reduce using rule 82 (empty -> .)
+    NE              reduce using rule 82 (empty -> .)
+    SEMICOLON       reduce using rule 82 (empty -> .)
+    RPARENTH        reduce using rule 82 (empty -> .)
+    COMMA           reduce using rule 82 (empty -> .)
+
+    cicloTerm                      shift and go to state 112
+    operadoresTerm                 shift and go to state 113
+    empty                          shift and go to state 114
+
+state 94
+
+    (74) factorExp -> LPARENTH expresion . RPARENTH
+
+    RPARENTH        shift and go to state 117
+
+
+state 95
+
+    (75) factorIdCte -> factorOperadores idOrCte .
+
+    TIMES           reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    DIVIDE          reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    PLUS            reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    MINUS           reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    GT              reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    LT              reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    NE              reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    SEMICOLON       reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    RPARENTH        reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+    COMMA           reduce using rule 75 (factorIdCte -> factorOperadores idOrCte .)
+
+
+state 96
+
+    (78) idOrCte -> ID .
+
+    TIMES           reduce using rule 78 (idOrCte -> ID .)
+    DIVIDE          reduce using rule 78 (idOrCte -> ID .)
+    PLUS            reduce using rule 78 (idOrCte -> ID .)
+    MINUS           reduce using rule 78 (idOrCte -> ID .)
+    GT              reduce using rule 78 (idOrCte -> ID .)
+    LT              reduce using rule 78 (idOrCte -> ID .)
+    NE              reduce using rule 78 (idOrCte -> ID .)
+    SEMICOLON       reduce using rule 78 (idOrCte -> ID .)
+    RPARENTH        reduce using rule 78 (idOrCte -> ID .)
+    COMMA           reduce using rule 78 (idOrCte -> ID .)
+
+
+state 97
+
+    (79) idOrCte -> cte .
+
+    TIMES           reduce using rule 79 (idOrCte -> cte .)
+    DIVIDE          reduce using rule 79 (idOrCte -> cte .)
+    PLUS            reduce using rule 79 (idOrCte -> cte .)
+    MINUS           reduce using rule 79 (idOrCte -> cte .)
+    GT              reduce using rule 79 (idOrCte -> cte .)
+    LT              reduce using rule 79 (idOrCte -> cte .)
+    NE              reduce using rule 79 (idOrCte -> cte .)
+    SEMICOLON       reduce using rule 79 (idOrCte -> cte .)
+    RPARENTH        reduce using rule 79 (idOrCte -> cte .)
+    COMMA           reduce using rule 79 (idOrCte -> cte .)
+
+
+state 98
+
+    (80) cte -> INTVALUE .
+
+    TIMES           reduce using rule 80 (cte -> INTVALUE .)
+    DIVIDE          reduce using rule 80 (cte -> INTVALUE .)
+    PLUS            reduce using rule 80 (cte -> INTVALUE .)
+    MINUS           reduce using rule 80 (cte -> INTVALUE .)
+    GT              reduce using rule 80 (cte -> INTVALUE .)
+    LT              reduce using rule 80 (cte -> INTVALUE .)
+    NE              reduce using rule 80 (cte -> INTVALUE .)
+    SEMICOLON       reduce using rule 80 (cte -> INTVALUE .)
+    RPARENTH        reduce using rule 80 (cte -> INTVALUE .)
+    COMMA           reduce using rule 80 (cte -> INTVALUE .)
+
+
+state 99
+
+    (81) cte -> FLOATVALUE .
+
+    TIMES           reduce using rule 81 (cte -> FLOATVALUE .)
+    DIVIDE          reduce using rule 81 (cte -> FLOATVALUE .)
+    PLUS            reduce using rule 81 (cte -> FLOATVALUE .)
+    MINUS           reduce using rule 81 (cte -> FLOATVALUE .)
+    GT              reduce using rule 81 (cte -> FLOATVALUE .)
+    LT              reduce using rule 81 (cte -> FLOATVALUE .)
+    NE              reduce using rule 81 (cte -> FLOATVALUE .)
+    SEMICOLON       reduce using rule 81 (cte -> FLOATVALUE .)
+    RPARENTH        reduce using rule 81 (cte -> FLOATVALUE .)
+    COMMA           reduce using rule 81 (cte -> FLOATVALUE .)
+
+
+state 100
+
+    (43) fCall -> ID LPARENTH expresionFCall RPARENTH . SEMICOLON
+
+    SEMICOLON       shift and go to state 118
+
+
+state 101
+
+    (44) expresionFCall -> expresionFCall COMMA . expresion
+    (59) expresion -> . exp comparacion solve_comparacion
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    expresion                      shift and go to state 119
+    exp                            shift and go to state 62
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 102
+
+    (34) condition -> IF LPARENTH expresion RPARENTH . evaluate_condition body conditionElse end_condition SEMICOLON
+    (36) evaluate_condition -> .
+
+    LCURLYB         reduce using rule 36 (evaluate_condition -> .)
+
+    evaluate_condition             shift and go to state 120
+
+state 103
+
+    (40) cycle -> DO startof_cycle body WHILE . expresion check_expression SEMICOLON
+    (59) expresion -> . exp comparacion solve_comparacion
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    expresion                      shift and go to state 121
+    exp                            shift and go to state 62
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 104
+
+    (47) print -> PRINT LPARENTH printExpresion RPARENTH . print_new_line SEMICOLON
+    (48) print_new_line -> .
+
+    SEMICOLON       reduce using rule 48 (print_new_line -> .)
+
+    print_new_line                 shift and go to state 122
+
+state 105
+
+    (49) printExpresion -> printExpresion COMMA . expresOrString
+    (51) expresOrString -> . expresion
+    (52) expresOrString -> . STRINGVALUE
+    (59) expresion -> . exp comparacion solve_comparacion
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    STRINGVALUE     shift and go to state 81
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    expresOrString                 shift and go to state 123
+    expresion                      shift and go to state 80
+    exp                            shift and go to state 62
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 106
+
+    (14) funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB . new_scope checkVars body RSQUAREB SEMICOLON
+    (16) new_scope -> .
+
+    VAR             reduce using rule 16 (new_scope -> .)
+    LCURLYB         reduce using rule 16 (new_scope -> .)
+
+    new_scope                      shift and go to state 124
+
+state 107
+
+    (59) expresion -> exp comparacion solve_comparacion .
+
+    SEMICOLON       reduce using rule 59 (expresion -> exp comparacion solve_comparacion .)
+    RPARENTH        reduce using rule 59 (expresion -> exp comparacion solve_comparacion .)
+    COMMA           reduce using rule 59 (expresion -> exp comparacion solve_comparacion .)
+
+
+state 108
+
+    (61) comparacion -> operadoresComp exp .
+
+    SEMICOLON       reduce using rule 61 (comparacion -> operadoresComp exp .)
+    RPARENTH        reduce using rule 61 (comparacion -> operadoresComp exp .)
+    COMMA           reduce using rule 61 (comparacion -> operadoresComp exp .)
+
+
+state 109
+
+    (53) exp -> termino solve_exp cicloExp .
+
+    GT              reduce using rule 53 (exp -> termino solve_exp cicloExp .)
+    LT              reduce using rule 53 (exp -> termino solve_exp cicloExp .)
+    NE              reduce using rule 53 (exp -> termino solve_exp cicloExp .)
+    SEMICOLON       reduce using rule 53 (exp -> termino solve_exp cicloExp .)
+    RPARENTH        reduce using rule 53 (exp -> termino solve_exp cicloExp .)
+    COMMA           reduce using rule 53 (exp -> termino solve_exp cicloExp .)
+
+
+state 110
+
+    (55) cicloExp -> operadoresExp . exp
+    (53) exp -> . termino solve_exp cicloExp
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    operadoresExp                  shift and go to state 69
+    exp                            shift and go to state 125
+    termino                        shift and go to state 63
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    empty                          shift and go to state 70
+
+state 111
+
+    (56) cicloExp -> empty .
+
+    GT              reduce using rule 56 (cicloExp -> empty .)
+    LT              reduce using rule 56 (cicloExp -> empty .)
+    NE              reduce using rule 56 (cicloExp -> empty .)
+    SEMICOLON       reduce using rule 56 (cicloExp -> empty .)
+    RPARENTH        reduce using rule 56 (cicloExp -> empty .)
+    COMMA           reduce using rule 56 (cicloExp -> empty .)
+
+
+state 112
+
+    (66) termino -> factor solve_term cicloTerm .
+
+    PLUS            reduce using rule 66 (termino -> factor solve_term cicloTerm .)
+    MINUS           reduce using rule 66 (termino -> factor solve_term cicloTerm .)
+    GT              reduce using rule 66 (termino -> factor solve_term cicloTerm .)
+    LT              reduce using rule 66 (termino -> factor solve_term cicloTerm .)
+    NE              reduce using rule 66 (termino -> factor solve_term cicloTerm .)
+    SEMICOLON       reduce using rule 66 (termino -> factor solve_term cicloTerm .)
+    RPARENTH        reduce using rule 66 (termino -> factor solve_term cicloTerm .)
+    COMMA           reduce using rule 66 (termino -> factor solve_term cicloTerm .)
+
+
+state 113
+
+    (68) cicloTerm -> operadoresTerm . termino
+    (66) termino -> . factor solve_term cicloTerm
+    (72) factor -> . factorExp
+    (73) factor -> . factorIdCte
+    (74) factorExp -> . LPARENTH expresion RPARENTH
+    (75) factorIdCte -> . factorOperadores idOrCte
+    (76) factorOperadores -> . operadoresExp
+    (77) factorOperadores -> . empty
+    (57) operadoresExp -> . PLUS
+    (58) operadoresExp -> . MINUS
+    (82) empty -> .
+
+    LPARENTH        shift and go to state 67
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    ID              reduce using rule 82 (empty -> .)
+    INTVALUE        reduce using rule 82 (empty -> .)
+    FLOATVALUE      reduce using rule 82 (empty -> .)
+
+    termino                        shift and go to state 126
+    factor                         shift and go to state 64
+    factorExp                      shift and go to state 65
+    factorIdCte                    shift and go to state 66
+    factorOperadores               shift and go to state 68
+    operadoresExp                  shift and go to state 69
+    empty                          shift and go to state 70
+
+state 114
+
+    (69) cicloTerm -> empty .
+
+    PLUS            reduce using rule 69 (cicloTerm -> empty .)
+    MINUS           reduce using rule 69 (cicloTerm -> empty .)
+    GT              reduce using rule 69 (cicloTerm -> empty .)
+    LT              reduce using rule 69 (cicloTerm -> empty .)
+    NE              reduce using rule 69 (cicloTerm -> empty .)
+    SEMICOLON       reduce using rule 69 (cicloTerm -> empty .)
+    RPARENTH        reduce using rule 69 (cicloTerm -> empty .)
+    COMMA           reduce using rule 69 (cicloTerm -> empty .)
+
+
+state 115
+
+    (70) operadoresTerm -> TIMES .
+
+    LPARENTH        reduce using rule 70 (operadoresTerm -> TIMES .)
+    PLUS            reduce using rule 70 (operadoresTerm -> TIMES .)
+    MINUS           reduce using rule 70 (operadoresTerm -> TIMES .)
+    ID              reduce using rule 70 (operadoresTerm -> TIMES .)
+    INTVALUE        reduce using rule 70 (operadoresTerm -> TIMES .)
+    FLOATVALUE      reduce using rule 70 (operadoresTerm -> TIMES .)
+
+
+state 116
+
+    (71) operadoresTerm -> DIVIDE .
+
+    LPARENTH        reduce using rule 71 (operadoresTerm -> DIVIDE .)
+    PLUS            reduce using rule 71 (operadoresTerm -> DIVIDE .)
+    MINUS           reduce using rule 71 (operadoresTerm -> DIVIDE .)
+    ID              reduce using rule 71 (operadoresTerm -> DIVIDE .)
+    INTVALUE        reduce using rule 71 (operadoresTerm -> DIVIDE .)
+    FLOATVALUE      reduce using rule 71 (operadoresTerm -> DIVIDE .)
+
+
+state 117
+
+    (74) factorExp -> LPARENTH expresion RPARENTH .
+
+    TIMES           reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    DIVIDE          reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    PLUS            reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    MINUS           reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    GT              reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    LT              reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    NE              reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    SEMICOLON       reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    RPARENTH        reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+    COMMA           reduce using rule 74 (factorExp -> LPARENTH expresion RPARENTH .)
+
+
+state 118
+
+    (43) fCall -> ID LPARENTH expresionFCall RPARENTH SEMICOLON .
+
+    RCURLYB         reduce using rule 43 (fCall -> ID LPARENTH expresionFCall RPARENTH SEMICOLON .)
+    ID              reduce using rule 43 (fCall -> ID LPARENTH expresionFCall RPARENTH SEMICOLON .)
+    IF              reduce using rule 43 (fCall -> ID LPARENTH expresionFCall RPARENTH SEMICOLON .)
+    DO              reduce using rule 43 (fCall -> ID LPARENTH expresionFCall RPARENTH SEMICOLON .)
+    PRINT           reduce using rule 43 (fCall -> ID LPARENTH expresionFCall RPARENTH SEMICOLON .)
+
+
+state 119
+
+    (44) expresionFCall -> expresionFCall COMMA expresion .
+
+    RPARENTH        reduce using rule 44 (expresionFCall -> expresionFCall COMMA expresion .)
+    COMMA           reduce using rule 44 (expresionFCall -> expresionFCall COMMA expresion .)
+
+
+state 120
+
+    (34) condition -> IF LPARENTH expresion RPARENTH evaluate_condition . body conditionElse end_condition SEMICOLON
+    (24) body -> . LCURLYB bodyStatements RCURLYB
+
+    LCURLYB         shift and go to state 25
+
+    body                           shift and go to state 127
+
+state 121
+
+    (40) cycle -> DO startof_cycle body WHILE expresion . check_expression SEMICOLON
+    (42) check_expression -> .
+
+    SEMICOLON       reduce using rule 42 (check_expression -> .)
+
+    check_expression               shift and go to state 128
+
+state 122
+
+    (47) print -> PRINT LPARENTH printExpresion RPARENTH print_new_line . SEMICOLON
+
+    SEMICOLON       shift and go to state 129
+
+
+state 123
+
+    (49) printExpresion -> printExpresion COMMA expresOrString .
+
+    RPARENTH        reduce using rule 49 (printExpresion -> printExpresion COMMA expresOrString .)
+    COMMA           reduce using rule 49 (printExpresion -> printExpresion COMMA expresOrString .)
+
+
+state 124
+
+    (14) funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope . checkVars body RSQUAREB SEMICOLON
+    (3) checkVars -> . vars
+    (4) checkVars -> . empty
+    (8) vars -> . VAR nombresVars
+    (82) empty -> .
+
+    VAR             shift and go to state 9
+    LCURLYB         reduce using rule 82 (empty -> .)
+
+    checkVars                      shift and go to state 130
+    vars                           shift and go to state 7
+    empty                          shift and go to state 8
+
+state 125
+
+    (55) cicloExp -> operadoresExp exp .
+
+    GT              reduce using rule 55 (cicloExp -> operadoresExp exp .)
+    LT              reduce using rule 55 (cicloExp -> operadoresExp exp .)
+    NE              reduce using rule 55 (cicloExp -> operadoresExp exp .)
+    SEMICOLON       reduce using rule 55 (cicloExp -> operadoresExp exp .)
+    RPARENTH        reduce using rule 55 (cicloExp -> operadoresExp exp .)
+    COMMA           reduce using rule 55 (cicloExp -> operadoresExp exp .)
+
+
+state 126
+
+    (68) cicloTerm -> operadoresTerm termino .
+
+    PLUS            reduce using rule 68 (cicloTerm -> operadoresTerm termino .)
+    MINUS           reduce using rule 68 (cicloTerm -> operadoresTerm termino .)
+    GT              reduce using rule 68 (cicloTerm -> operadoresTerm termino .)
+    LT              reduce using rule 68 (cicloTerm -> operadoresTerm termino .)
+    NE              reduce using rule 68 (cicloTerm -> operadoresTerm termino .)
+    SEMICOLON       reduce using rule 68 (cicloTerm -> operadoresTerm termino .)
+    RPARENTH        reduce using rule 68 (cicloTerm -> operadoresTerm termino .)
+    COMMA           reduce using rule 68 (cicloTerm -> operadoresTerm termino .)
+
+
+state 127
+
+    (34) condition -> IF LPARENTH expresion RPARENTH evaluate_condition body . conditionElse end_condition SEMICOLON
+    (37) conditionElse -> . ELSE evaluate_else body
+    (38) conditionElse -> . empty
+    (82) empty -> .
+
+    ELSE            shift and go to state 132
+    SEMICOLON       reduce using rule 82 (empty -> .)
+
+    conditionElse                  shift and go to state 131
+    empty                          shift and go to state 133
+
+state 128
+
+    (40) cycle -> DO startof_cycle body WHILE expresion check_expression . SEMICOLON
+
+    SEMICOLON       shift and go to state 134
+
+
+state 129
+
+    (47) print -> PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON .
+
+    RCURLYB         reduce using rule 47 (print -> PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON .)
+    ID              reduce using rule 47 (print -> PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON .)
+    IF              reduce using rule 47 (print -> PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON .)
+    DO              reduce using rule 47 (print -> PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON .)
+    PRINT           reduce using rule 47 (print -> PRINT LPARENTH printExpresion RPARENTH print_new_line SEMICOLON .)
+
+
+state 130
+
+    (14) funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars . body RSQUAREB SEMICOLON
+    (24) body -> . LCURLYB bodyStatements RCURLYB
+
+    LCURLYB         shift and go to state 25
+
+    body                           shift and go to state 135
+
+state 131
+
+    (34) condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse . end_condition SEMICOLON
+    (35) end_condition -> .
+
+    SEMICOLON       reduce using rule 35 (end_condition -> .)
+
+    end_condition                  shift and go to state 136
+
+state 132
+
+    (37) conditionElse -> ELSE . evaluate_else body
+    (39) evaluate_else -> .
+
+    LCURLYB         reduce using rule 39 (evaluate_else -> .)
+
+    evaluate_else                  shift and go to state 137
+
+state 133
+
+    (38) conditionElse -> empty .
+
+    SEMICOLON       reduce using rule 38 (conditionElse -> empty .)
+
+
+state 134
+
+    (40) cycle -> DO startof_cycle body WHILE expresion check_expression SEMICOLON .
+
+    RCURLYB         reduce using rule 40 (cycle -> DO startof_cycle body WHILE expresion check_expression SEMICOLON .)
+    ID              reduce using rule 40 (cycle -> DO startof_cycle body WHILE expresion check_expression SEMICOLON .)
+    IF              reduce using rule 40 (cycle -> DO startof_cycle body WHILE expresion check_expression SEMICOLON .)
+    DO              reduce using rule 40 (cycle -> DO startof_cycle body WHILE expresion check_expression SEMICOLON .)
+    PRINT           reduce using rule 40 (cycle -> DO startof_cycle body WHILE expresion check_expression SEMICOLON .)
+
+
+state 135
+
+    (14) funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body . RSQUAREB SEMICOLON
+
+    RSQUAREB        shift and go to state 138
+
+
+state 136
+
+    (34) condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition . SEMICOLON
+
+    SEMICOLON       shift and go to state 139
+
+
+state 137
+
+    (37) conditionElse -> ELSE evaluate_else . body
+    (24) body -> . LCURLYB bodyStatements RCURLYB
+
+    LCURLYB         shift and go to state 25
+
+    body                           shift and go to state 140
+
+state 138
+
+    (14) funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB . SEMICOLON
+
+    SEMICOLON       shift and go to state 141
+
+
+state 139
+
+    (34) condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON .
+
+    RCURLYB         reduce using rule 34 (condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON .)
+    ID              reduce using rule 34 (condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON .)
+    IF              reduce using rule 34 (condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON .)
+    DO              reduce using rule 34 (condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON .)
+    PRINT           reduce using rule 34 (condition -> IF LPARENTH expresion RPARENTH evaluate_condition body conditionElse end_condition SEMICOLON .)
+
+
+state 140
+
+    (37) conditionElse -> ELSE evaluate_else body .
+
+    SEMICOLON       reduce using rule 37 (conditionElse -> ELSE evaluate_else body .)
+
+
+state 141
+
+    (14) funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON .
+
+    VOID            reduce using rule 14 (funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON .)
+    MAIN            reduce using rule 14 (funcs -> VOID ID LPARENTH groupParams add_function RPARENTH LSQUAREB new_scope checkVars body RSQUAREB SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 25 resolved as shift
+WARNING: shift/reduce conflict for IF in state 25 resolved as shift
+WARNING: shift/reduce conflict for DO in state 25 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 25 resolved as shift
+WARNING: reduce/reduce conflict in state 11 resolved using rule (cicloFuncs -> funcs)
+WARNING: rejected rule (empty -> <empty>) in state 11
