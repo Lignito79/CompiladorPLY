@@ -97,6 +97,7 @@ def add_to_counter(lower_bound, type):
 
     lower_limit = limit_lower_limit_by_type(lower_bound, type)
 
+
     ranges = {
         range(0, 1000): 'counter_GI',
         range(1000, 2000): 'counter_GF',
@@ -109,6 +110,7 @@ def add_to_counter(lower_bound, type):
         range(8000, 9000): 'counter_LB',
         range(8000, 10000): 'counter_CTEs'
     }
+
 
     for addr_range, counter_name in ranges.items():
         if lower_limit in addr_range:
@@ -157,14 +159,14 @@ def p_cicloFuncs(p):
         p[0] = p[1]
     else:
         p[0] = None
-        
+    #print("cicloFuncs")
 
 
 # Variables
 def p_vars(p):
     '''vars : VAR nombresVars'''
     p[0] = p[2]
-    
+    #print("vars")
 
 def p_nombresVars(p):
     '''nombresVars  : nombresVars declVar
@@ -182,6 +184,10 @@ def p_declVar(p):
 
     # Aquí se insertan las variables dependiendo del scope y el tipo. También se verifica si están repetidos o no,
     # pero aún no hay manejo de errores de acuerdo a eso.
+    print('---------------------')
+    print('ESTOY IMPRIMIENDO VARIABLES:')
+    print(p[0])
+    print('---------------------')
 
     var_type = assign_type_stack.top()
 
@@ -193,7 +199,7 @@ def p_declVar(p):
                 memory_direction = add_to_counter(scope[1], var_type)
                 variable_table.add(scope_stack.top()[0], var_definition[1], assign_type_stack.top(), memory_direction)
             else:
-                raise RuntimeError("Error: La variable \"" + var_definition[1] + "\" ya fue declarada" )
+                print("Error: La variable \"" + var_definition[1] + "\" ya fue declarada" )
 
 
     assign_type_stack.pop()
@@ -235,6 +241,7 @@ def p_groupParams(p):
 def p_idsParams(p):
     '''idsParams : ID COLON type'''
     p[0] = (p[1], p[3])
+    #print("idsParams")
 
 
 # Types
@@ -242,6 +249,7 @@ def p_type(p):
     '''type : INT new_type
             | FLOAT new_type'''
     p[0] = ('TYPE', p[1])
+    #print("type")
 
 def p_new_type(p):
     '''new_type :'''
@@ -251,6 +259,7 @@ def p_new_type(p):
 def p_body(p):
     '''body : LCURLYB bodyStatements RCURLYB'''
     p[0] = p[2]
+    #print("body")
 
 def p_bodyStatements(p):
     '''bodyStatements   : bodyStatements statement
@@ -265,6 +274,8 @@ def p_bodyStatements(p):
     else:
         p[0] = None
 
+    #print("bodyStatements")
+
 
 # Statement
 def p_statement(p):
@@ -274,6 +285,7 @@ def p_statement(p):
                     | fCall
                     | print'''
     p[0] = p[1]
+    #print("statement")
 
 
 # Assign
@@ -285,9 +297,15 @@ def p_assign(p):
     
     left_operand = p[1]
 
+    print('-----------------------------')
+    print('IMPRIMIR ASSIGN')
     quad = ['=', right_operand['memory'], '', get_memory_direction(scope_stack.top()[0], left_operand)]
     quad_stack.push(quad)
-    
+    print('Numero de cuadruplo: ' + str(quad_stack.size()-1))
+    print(quad)
+    print('-----------------------------')
+    #print("assign")
+
 
 # Condition
 def p_condition(p):
@@ -299,9 +317,15 @@ def p_end_condition(p):
     end = jump_stack.pop()
     quad_stack.fill(end, quad_stack.size())
 
+    print('---------------------------------------------')
+    print('IMPRIMO CUADRUPLO DE SALTO FALSO ACTUALIZADO:')
+    print(quad_stack.quads[end])
+    print('---------------------------------------------')
+
 def p_evaluate_condition(p):
     '''evaluate_condition :'''
     
+    #print("condition")
     exp_type = type_stack.pop()
     
     if exp_type != 'bool':
@@ -312,6 +336,11 @@ def p_evaluate_condition(p):
     quad_stack.push(quad)
 
     jump_stack.push(quad_stack.size()-1)
+    print('---------------------------------------------')
+    print('AQUÍ SE IMPRIME CONDICIONALES')
+    print('Numero de cuadruplo: ' + str(quad_stack.size()-1))
+    print('ESTE ES EL QUAD DEL GOTOF: ' + str(quad))
+    print('---------------------------------------------')
 
 
 def p_conditionElse(p):
@@ -330,7 +359,17 @@ def p_evaluate_else(p):
     pending_jump = jump_stack.pop()
     jump_stack.push(quad_stack.size()-1)
 
+    print('---------------------------------------------')
+    print('CUADRUPLO DE ELSE:')
+    print("Numero de cuadruplo: " + str(quad_stack.size()-1))
+    print(quad)
+    print('---------------------------------------------')
+
     quad_stack.fill(pending_jump, quad_stack.size())
+    print('---------------------------------------------')
+    print('IMPRIMO CUADRUPLO DE SALTO HACIA ELSE ACTUALIZADO:')
+    print(quad_stack.quads[pending_jump])
+    print('---------------------------------------------')
 
 
 # Cycle
@@ -353,11 +392,17 @@ def p_check_expression(p):
         result = o_stack.pop()
         quad = ['GoToT', result['memory'], '', jump_stack.pop()]
         quad_stack.push(quad)
+        print('---------------------------------------------')
+        print('IMPRIMO CUADRUPLO DE SALTO EN EXPRESION DO-WHILE:')
+        print("Numero de cuadruplo: " + str(quad_stack.size()-1))
+        print(quad)
+        print('---------------------------------------------')
 
 # Function Call
 def p_fCall(p):
     '''fCall : ID LPARENTH expresionFCall RPARENTH SEMICOLON'''
     p[0] = (p[1], p[3])
+    #print("fCall")
 
 def p_expresionFCall(p):
     '''expresionFCall   : expresionFCall COMMA expresion
@@ -370,6 +415,8 @@ def p_expresionFCall(p):
         p[0] = [p[1]]
     else:
         p[0] = None
+    #print("expresionFCall")
+
 
 # Print
 def p_print(p):
@@ -378,8 +425,13 @@ def p_print(p):
 
 def p_print_new_line(p):
     '''print_new_line :'''
+    print('-----------------------------')
+    print('IMPRIMIR PRINT')
     quad = ['print', '', '', '99']
     quad_stack.push(quad)
+    print('Numero de cuadruplo: ' + str(quad_stack.size()-1))
+    print(quad)
+    print('-----------------------------')
 
 def p_printExpresion(p):
     '''printExpresion   : printExpresion COMMA expresOrString
@@ -389,33 +441,46 @@ def p_printExpresion(p):
         p[0].append(p[3])
     else:
         p[0] = [p[1]]
+    #print("printExpresion")
 
 def p_expresOrString(p):
     '''expresOrString   : expresion
                         | STRINGVALUE'''
     p[0] = p[1]
-
+    
+    print(p[1])
     if isinstance(p[1], tuple):
         right_operand = o_stack.pop()
         right_type = type_stack.pop()
 
+        print('-----------------------------')
+        print('IMPRIMIR PRINT')
         quad = ['print', '', '', right_operand['memory']]
         quad_stack.push(quad)
-        
+        print('Numero de cuadruplo: ' + str(quad_stack.size()-1))
+        print(quad)
+        print('-----------------------------')
+        #print("print")
+        #print("expresOrString") """
     else:
         constant_memory_direction = add_to_counter(8000, p[1])
         variable_table.add_constant(constant_memory_direction, p[1])
         f.write(str(constant_memory_direction) + " " + str(p[1]) + "\n")
 
+        print('-----------------------------')
+        print('IMPRIMIR PRINT')
         quad = ['print', '', '', constant_memory_direction]
         quad_stack.push(quad)
+        print('Numero de cuadruplo: ' + str(quad_stack.size()-1))
+        print(quad)
+        print('-----------------------------')
 
 
 # Exp
 def p_exp(p):
     '''exp : termino solve_exp cicloExp'''
     p[0] = (p[1], p[3])
-
+    #print("exp")
 
 def p_solve_exp(p):
     '''solve_exp :'''
@@ -431,6 +496,7 @@ def p_cicloExp(p):
         p[0] = (p[1], p[2])
     else:
         p[0] = None
+    #print("cicloExp")
 
 def p_operadoresExp(p):
     '''operadoresExp    : PLUS
@@ -438,13 +504,14 @@ def p_operadoresExp(p):
     p[0] = p[1]
     
     operator_stack.push(p[0])
-    
+    #print("operadoresExp")
+
 
 # Expresion
 def p_expresion(p):
     '''expresion : exp comparacion solve_comparacion'''
     p[0] = (p[1], p[2])
-    
+    #print("expresion")
 
 def p_solve_comparacion(p):
     '''solve_comparacion :'''
@@ -459,7 +526,7 @@ def p_comparacion(p):
         p[0] = (p[1], p[2])
     else:
         p[0] = None
-        
+    #print("comparacion")
 
 def p_operadoresComp(p):
     '''operadoresComp   : GT
@@ -468,14 +535,14 @@ def p_operadoresComp(p):
     p[0] = p[1]
 
     operator_stack.push(p[0])
-    
+    #print("operadoresComp")
 
 
 # Termino
 def p_termino(p):
     '''termino : factor solve_term cicloTerm'''
     p[0] = (p[1], p[3])
-    
+    #print("termino")
 
 def p_solve_term(p):
     '''solve_term :'''
@@ -492,6 +559,11 @@ def solve_operation():
 
     operator = operator_stack.pop()
 
+    print('----------------------------------------')
+    print(right_operand)
+    print(operator)
+    print(left_operand)
+    print('----------------------------------------')
 
     result_type = semanticCube[left_type][right_type][operator]
    
@@ -506,9 +578,17 @@ def solve_operation():
         quad = [operator, left_operand['memory'], right_operand['memory'], temporal_memory_direction]
         quad_stack.push(quad)
 
+        print('---------------------------------------------')
+        print('Numero de cuadruplo: ' + str(quad_stack.size()-1))
+        print("Tipo de resultado: " + result_type)
+        print('Cuadruplo generado: ' + str(quad_stack.top()))
+
         o_stack.push({'name': result, 'temporary': True, 'constant': False, 'memory': temporal_memory_direction})
         type_stack.push(result_type)
-        
+
+        print('Tipo de resultado registrado: ' + result_type)
+        print('---------------------------------------------')
+
         if left_operand['temporary']:
             temp_array.return_temporary(left_operand['name'])
         if right_operand['temporary']:
@@ -523,7 +603,7 @@ def p_cicloTerm(p):
         p[0] = (p[1], p[2])
     else:
         p[0] = None
-        
+    #print("cicloTerm")
 
 def p_operadoresTerm(p):
     '''operadoresTerm   : TIMES
@@ -531,19 +611,22 @@ def p_operadoresTerm(p):
     p[0] = p[1]
 
     operator_stack.push(p[0])
-    
+    #print("operadoresTerm")
+
 
 # Factor
 def p_factor(p):
     '''factor   : factorExp
                 | factorIdCte'''
     p[0] = p[1]
-    
+    # AQUÍ VA UN ELSE, SI NO ES UN NUMERO ES UNA VARIABLE, TENEMOS QUE GUARDARLA DE ALGUNA FORMA EN EL STACK
+    # Pff no sé a qué me refería en esta anotación, pero la dejo por si un día me hace sentido. Las variables ya se guardan (sin valor) jajaj    
+    #print("factor")
 
 def p_factorExp(p):
     '''factorExp : LPARENTH expresion RPARENTH'''
     p[0] = p[2]
-    
+    #print("factorExp")
 
 def p_factorIdCte(p):
     '''factorIdCte : factorOperadores idOrCte'''    
@@ -573,7 +656,7 @@ def p_factorOperadores(p):
     '''factorOperadores : operadoresExp
                         | empty'''
     p[0] = p[1]
-    
+    #print("factorOperadores")
 
 def p_idOrCte(p):
     '''idOrCte  : ID
@@ -657,10 +740,22 @@ def parse(data, debug=0):
     p = patitoParser.parse(data, debug=debug)
     if patitoParser.error:
         return None
+    """ else:
+        print(p) """
     return p
 
 parse(data)
 
+print("Function Directory:")
+for func_name, func_info in function_directory.directory.items():
+    print(f"Function Name: {func_name}")
+    print(f"Parameters: {func_info['params']}")
+
+
+print("Variable Table:")
+variable_table.print_all()
+variable_table.print_constants()
+quad_stack.print()
 f.write("%%\n")
 f.close()
 quad_stack.writeOBJ()

@@ -41,7 +41,7 @@ class VirtualMachine:
                         memory_address = int(constant[0])
                         value = constant[1]
                         if value.startswith('"') and value.endswith('"'):
-                            value = value[1:-1] 
+                            value = value[1:-1]
                         else:
                             try:
                                 value = int(value)
@@ -103,8 +103,7 @@ class VirtualMachine:
                 
                 current_line_index += 1
 
-# YA JALÓ LA MEMORIA Y ESTRUCTURA DE CUADRUPLOS
-# AHORA SOLO TENGO QUE LEER LAS INSTRUCCIONES, EJECUTARLAS Y GUARDARLAS EN MEMORIA (O HACER PRINT)
+
 vm = VirtualMachine()
 
 vm.load_file_lines()
